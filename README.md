@@ -1,6 +1,6 @@
 #  Trivia
 
-created a  webpage to manage the trivia app and play the game, but their API experience 
+created a  webpage to manage the trivia app and play the game
 
 That's where you come in! Help them finish the trivia app so they can start holding trivia and seeing who's the most knowledgeable of the bunch. The application must:
 

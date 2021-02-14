@@ -66,31 +66,302 @@ One note before you delve into your tasks: for each endpoint you are expected to
 8. Create a POST endpoint to get questions to play the quiz. This endpoint should take category and previous question parameters and return a random questions within the given category, if provided, and that is not one of the previous questions. 
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
-REVIEW_COMMENT
+# API
+
+## Introduction
+
+> this api allows u to store and minpulate questions which you  as data used for trivia game
+> every cateogory is a container for the questions  i,e every category has his owen questions
+> play game is only about random questions which is stored  with it's answer  and their is randomizer for it without repeating old questions 
+
+## Getting Started
+
+- Base Url 
+* localhost
+* 127.0.0.1:5000
+
+- Authentication 
+* False => you dont have to autherize to use this api
+
+## Errors Handlers
+
+### 404 code
+- happens when you look for resource not found
+  1.  success': False
+  1. error': 404
+  1. message   resource not found  
+  
+### 422 code
+- happens when you submit is valid but cant proccess it due to alot of reasons
+  1.  success': False
+  1. error': 422
+  1. message   Unprocessable Entity
+
+
+### 400 code
+- happens when you submit invalid data 
+  1.  success': False
+  1. error': 400
+  1. message   Bad Request
+
+### 500 code
+- happens Server error 
+  1.  success': False
+  1. error': 500
+  1. message   server error
+
+## Resources
+1. Cateogories
+1. Questions
+
+## End Points
+
+- Categories
+    * categoryQuestions  
+    > Method Type GET
+    > Url :127.0.0.1:5000/categories/category_id/questions/ 
+    > curl --location --request GET '127.0.0.1:5000/categories/1/questions/' 
 ```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
-
-Endpoints
-GET '/categories'
-GET ...
-POST ...
-DELETE ...
-
-GET '/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
-- Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
-
+{
+    "questions": [
+        {
+            "answer": "The Liver",
+            "category": 1,
+            "difficulty": 4,
+            "id": 20,
+            "question": "What is the heaviest organ in the human body?"
+        },
+        {
+            "answer": "Alexander Fleming",
+            "category": 1,
+            "difficulty": 3,
+            "id": 21,
+            "question": "Who discovered penicillin?"
+        },
+        {
+            "answer": "Blood",
+            "category": 1,
+            "difficulty": 4,
+            "id": 22,
+            "question": "Hematology is a branch of medicine involving the study of what?"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 26,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 27,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 29,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 30,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 31,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 32,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 33,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 34,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 35,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 36,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 37,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 38,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 39,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 41,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 42,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 43,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 44,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 45,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 46,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 47,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 48,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 49,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 50,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 51,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 52,
+            "question": "testing"
+        },
+        {
+            "answer": "12321",
+            "category": 1,
+            "difficulty": 5,
+            "id": 58,
+            "question": "123132"
+        },
+        {
+            "answer": "12321",
+            "category": 1,
+            "difficulty": 5,
+            "id": 59,
+            "question": "123132"
+        },
+        {
+            "answer": "12321",
+            "category": 1,
+            "difficulty": 5,
+            "id": 63,
+            "question": "123132"
+        },
+        {
+            "answer": "12321",
+            "category": 1,
+            "difficulty": 5,
+            "id": 64,
+            "question": "123132"
+        },
+        {
+            "answer": "12321",
+            "category": 1,
+            "difficulty": 5,
+            "id": 65,
+            "question": "123132"
+        }
+    ],
+    "success": true
+}
 ```
 
 
-## Testing
+# Testing
 To run the tests, run
 ```
 dropdb trivia_test

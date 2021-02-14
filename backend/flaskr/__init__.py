@@ -153,7 +153,7 @@ def create_app(test_config=None):
         'message': 'Unprocessable Entity'
     }), 422
 
-  @app.errorhandler(422)
+  @app.errorhandler(400)
   def bad_request(error):
     return jsonify({
               'success': False,

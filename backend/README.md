@@ -117,7 +117,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 ## End Points
 
 - Categories
-1.  categoryQuestions  
+- categoryQuestions  
     * Method Type GET
     * Url :127.0.0.1:5000/categories/category_id/questions/ 
     * curl --location --request GET '127.0.0.1:5000/categories/1/questions/' 
@@ -164,10 +164,10 @@ One note before you delve into your tasks: for each endpoint you are expected to
 }
 ```
 
-1.  index
+-  Index
     * Method Type GET
-    * Url :127.0.0.1:5000/categories/category_id/questions/ 
-    * curl --location --request GET '127.0.0.1:5000/categories/1/questions/' 
+    * Url :127.0.0.1:5000/categories
+    * curl --location --request GET 127.0.0.1:5000/categories
 ```
 {
     "categories": {
@@ -179,6 +179,118 @@ One note before you delve into your tasks: for each endpoint you are expected to
         "6": "Sports"
     },
     "success": true
+}
+```
+
+- Questions
+- index  
+    * Method Type GET
+    * Url :127.0.0.1:5000/questions/?page=1
+    * curl --location --request GET 127.0.0.1:5000/questions/?page=1
+    * PARAMS  page   1
+```
+{
+    "categories": {
+        "1": "Science",
+        "2": "Art",
+        "3": "Geography",
+        "4": "History",
+        "5": "Entertainment",
+        "6": "Sports"
+    },
+    "current_category": null,
+    "questions": [
+        {
+            "answer": "Escher",
+            "category": 2,
+            "difficulty": 1,
+            "id": 16,
+            "question": "Which Dutch graphic artist–initials M C was a creator of optical illusions?"
+        }
+    ],
+    "success": true,
+    "total_questions": 61
+}
+```
+
+- Delete  
+    * Method Type DEL
+    * Url :127.0.0.1:5000/questions/37
+    * curl --location --request DELETE '127.0.0.1:5000/questions/60'
+```
+{
+    "message": "question has been deleted successfully",
+    "success": true
+}
+```
+
+- Store  
+    * Method Type POST
+    * Url :127.0.0.1:5000/questions
+    * body
+    ```
+    {
+        "question": 123132,
+        "answer": 12321,
+        "category_id": 2,
+        "difficulty": 5
+    }
+    ```
+    * Request
+    ```
+    curl --location --request POST '127.0.0.1:5000/questions' \
+        --data-raw '{
+            "question": 123132,
+            "answer": 12321,
+            "category_id": 2,
+            "difficulty": 5
+    }'
+    ```
+```
+{
+    "message": "question has been deleted successfully",
+    "success": true
+}
+```
+
+- search
+    * Method Type POST
+    * Url :127.0.0.1:5000/questions/search
+    * curl --location --request POST '127.0.0.1:5000questions/search' \ --data-raw '{"searchTerm" :"test"}'
+    * Body
+```
+{
+    "searchTerm" :"test"
+}
+```
+```
+{
+    "current_category": null,
+    "questions": [
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 26,
+            "question": "testing"
+        },
+        {
+            "answer": "testing",
+            "category": 1,
+            "difficulty": 5,
+            "id": 27,
+            "question": "testing"
+        },
+        {
+            "answer": "dsfdsf",
+            "category": 4,
+            "difficulty": 5,
+            "id": 57,
+            "question": "test5000"
+        }
+    ],
+    "success": true,
+    "total_questions": 26
 }
 ```
 

@@ -78,9 +78,20 @@ def create_app(test_config=None):
   @app.route('/questions', methods=['POST'])
   def store_questiong():
     request_data = request.form
-    if len(request_data) == 3 :
-      if 'question' in  request_data and 'answer' in  request_data and 'difficulty' in  request_data :
-        print(1)
+    if len(request_data) >= 2 :
+
+      if 'question' in  request_data and 'answer' in  request_data and 'category_id' in  request_data :
+
+          validatedData = dict(request_data)
+
+          question = Question(
+            question = validatedData['question'], 
+            answer = validatedData['answer'], 
+            category = validatedData['category_id'],
+            difficulty = validatedData['difficulty']
+          )
+      
+          question.insert()
       else:
         abort(422)  
     else :
@@ -89,7 +100,7 @@ def create_app(test_config=None):
     return jsonify({
       'success': True,
       'message': 'a New Question Has Been Added Successfully',
-      'question': validations
+      'question':question
     })
   '''
   @TODO: 
@@ -101,7 +112,23 @@ def create_app(test_config=None):
   only question that include that string within their question. 
   Try using the word "title" to start. 
   '''
+@app.route('/questions/search', methods=['POST'])
+  def question_search():
+    request_data = request.form
+    if len(request_data) >= 2 :
 
+      if 'question' in  request_data  :
+
+      else:
+        abort(422)  
+    else :
+      abort(422)
+
+    return jsonify({
+      'success': True,
+      'message': 'the question is found',
+      'question':question
+    })
   '''
   @TODO: 
   Create a GET endpoint to get questions based on category. 
@@ -124,12 +151,38 @@ def create_app(test_config=None):
   and shown whether they were correct or not. 
   '''
 
-  '''
-  @TODO: 
-  Create error handlers for all expected errors 
-  including 404 and 422. 
-  '''
-  
+  @app.errorhandler(404)
+  def not_found(error):
+      return jsonify({
+        'success': False,
+        'error': 404,
+        'message': 'resource not found'
+      }), 404
+
+  @app.errorhandler(422)
+  def unprocessable(error):
+      return jsonify({
+        'success': False,
+        'error': 422,
+        'message': 'Unprocessable Entity'
+      }), 422
+
+  @app.errorhandler(422)
+  def bad_request(error):
+      return jsonify({
+              'success': False,
+              'error': 400,
+              'message': 'bad request'
+          }), 400
+
+  @app.errorhandler(500)
+  def server_error(error):
+        return jsonify({
+            'success': False,
+            'error': 500,
+            'message': 'server error'
+      }), 500
+
   return app
 
     

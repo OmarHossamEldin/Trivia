@@ -6,16 +6,21 @@ import random
 
 from models import setup_db, Question, Category
 
-QUESTIONS_PER_PAGE = 10
 
+QUESTIONS_PER_PAGE = 10
 def paginate_questions(request, selection):
   page = request.args.get('page', 1, type=int)
-  start = (page -1) * QUESTION_PER_PAGE
-  end = start + QUESTION_PER_PAGE
+  start = (page -1) * QUESTIONS_PER_PAGE
+  end = start + QUESTIONS_PER_PAGE
 
   questions = [question.format() for question in selection]
-  selected_questuions = question[start:end]
+  selected_questions = questions[start:end]
   return selected_questions
+
+def get_categories():
+  categories = Category.query.all()
+  formattedCategories = [category.format() for category in categories]
+  return formattedCategories
 
 
 def create_app(test_config=None):
@@ -35,28 +40,29 @@ def create_app(test_config=None):
 
 
   @app.route("/categories", methods=['GET'])
-  def get_categories():
-    categories = Category.query.all()
-    formattedCategories = [category.format() for category in categories]
-
+  def recive_categories():
     return  jsonify({
         'success': True,
-        'categories': formattedCategories
+        'categories': get_categories()
     })
 
-  '''
-  @TODO: 
+  @app.route('/categories/<int:category_id>/questions/', methods=['GET'])
+  def get_questions(category_id):
+    selected_question = Question.query.filter_by(category=category_id).all()
+    result_per_page =  paginate_questions(request, selected_question)
 
-  Create an endpoint to handle GET requests for questions, 
-  including pagination (every 10 questions). 
-  This endpoint should return a list of questions, 
-  number of total questions, current category, categories. 
+    question_count = len(Question.query.all())
 
-  TEST: At this point, when you start the application
-  you should see questions and categories generated,
-  ten questions per page and pagination at the bottom of the screen for three pages.
-  Clicking on the page numbers should update the questions. 
-  '''
+    if len(result_per_page) == 0 :
+        abort(404)
+    
+    return  jsonify({
+        'success': True,
+        'pagintated_question': result_per_page,
+        'question_count': question_count,
+        'current_category': Category.query.get_or_404(category_id).format(),
+        'categories': get_categories()
+    })
 
   '''
   @TODO: 

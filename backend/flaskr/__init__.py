@@ -76,7 +76,7 @@ def create_app(test_config=None):
  
 
   @app.route('/questions', methods=['POST'])
-  def store_questiong():
+  def store_question():
     request_data = request.form
     if len(request_data) >= 2 :
 
@@ -102,32 +102,28 @@ def create_app(test_config=None):
       'message': 'a New Question Has Been Added Successfully',
       'question':question
     })
-  '''
-  @TODO: 
-  Create a POST endpoint to get questions based on a search term. 
-  It should return any questions for whom the search term 
-  is a substring of the question. 
+  
 
-  TEST: Search by any phrase. The questions list will update to include 
-  only question that include that string within their question. 
-  Try using the word "title" to start. 
-  '''
-@app.route('/questions/search', methods=['POST'])
+  @app.route('/questions/search', methods=['POST'])
   def question_search():
-    request_data = request.form
-    if len(request_data) >= 2 :
-
-      if 'question' in  request_data  :
-
-      else:
-        abort(422)  
+    validatedData = dict(request.form) 
+    if validatedData['searchTerm'] :
+          searchterm = validatedData['searchTerm']
+          questions = Question.query.filter(Question.question.ilike(f'%{searchterm}%')).all()
+          formattedQuestions = [question.format() for question in questions]
+          if len(questions)== 0 :
+              abort(404)
     else :
-      abort(422)
+        return jsonify({
+          'success': False,
+          'message': 'plz insert term for search',
+          'questions': None
+        })
 
     return jsonify({
       'success': True,
       'message': 'the question is found',
-      'question':question
+      'questions': formattedQuestions
     })
   '''
   @TODO: 

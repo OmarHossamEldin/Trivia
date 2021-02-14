@@ -46,9 +46,9 @@ def create_app(test_config=None):
         'categories': get_categories()
     })
 
-  @app.route('/categories/<int:category_id>/questions/', methods=['GET'])
-  def get_questions(category_id):
-    selected_question = Question.query.filter_by(category=category_id).all()
+  @app.route('/categories/questions/', methods=['GET'])
+  def get_questions():
+    selected_question = Question.query.all()
     result_per_page =  paginate_questions(request, selected_question)
 
     question_count = len(Question.query.all())
@@ -60,7 +60,7 @@ def create_app(test_config=None):
         'success': True,
         'pagintated_question': result_per_page,
         'question_count': question_count,
-        'current_category': Category.query.get_or_404(category_id).format(),
+        'current_category': None,
         'categories': get_categories()
     })
 
@@ -125,14 +125,18 @@ def create_app(test_config=None):
       'message': 'the question is found',
       'questions': formattedQuestions
     })
-  '''
-  @TODO: 
-  Create a GET endpoint to get questions based on category. 
-
-  TEST: In the "List" tab / main screen, clicking on one of the 
-  categories in the left column will cause only questions of that 
-  category to be shown. 
-  '''
+    
+  @app.route('/categories/<int:category_id>/questions/', methods=['GET'])
+  def get_categories_questions(category_id):
+    selected_question = Question.query.filter_by(category=category_id).all()
+    formattedQuestions = [question.format() for question in selected_question]
+    if len(formattedQuestions) == 0 :
+        abort(404)
+    
+    return  jsonify({
+        'success': True,
+        'questions': formattedQuestions,
+      })
 
 
   '''
@@ -149,35 +153,35 @@ def create_app(test_config=None):
 
   @app.errorhandler(404)
   def not_found(error):
-      return jsonify({
+    return jsonify({
         'success': False,
         'error': 404,
         'message': 'resource not found'
-      }), 404
+    }), 404
 
   @app.errorhandler(422)
   def unprocessable(error):
-      return jsonify({
+    return jsonify({
         'success': False,
         'error': 422,
         'message': 'Unprocessable Entity'
-      }), 422
+    }), 422
 
   @app.errorhandler(422)
   def bad_request(error):
-      return jsonify({
+    return jsonify({
               'success': False,
               'error': 400,
               'message': 'bad request'
-          }), 400
+      }), 400
 
   @app.errorhandler(500)
   def server_error(error):
-        return jsonify({
+      return jsonify({
             'success': False,
             'error': 500,
             'message': 'server error'
-      }), 500
+    }), 500
 
   return app
 

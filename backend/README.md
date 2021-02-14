@@ -118,9 +118,9 @@ One note before you delve into your tasks: for each endpoint you are expected to
 
 - Categories
     * categoryQuestions  
-    > Method Type GET
-    > Url :127.0.0.1:5000/categories/category_id/questions/ 
-    > curl --location --request GET '127.0.0.1:5000/categories/1/questions/' 
+    * Method Type GET
+    * Url :127.0.0.1:5000/categories/category_id/questions/ 
+    * curl --location --request GET '127.0.0.1:5000/categories/1/questions/' 
 ```
 {
     "questions": [
@@ -130,20 +130,6 @@ One note before you delve into your tasks: for each endpoint you are expected to
             "difficulty": 4,
             "id": 20,
             "question": "What is the heaviest organ in the human body?"
-        },
-        {
-            "answer": "Alexander Fleming",
-            "category": 1,
-            "difficulty": 3,
-            "id": 21,
-            "question": "Who discovered penicillin?"
-        },
-        {
-            "answer": "Blood",
-            "category": 1,
-            "difficulty": 4,
-            "id": 22,
-            "question": "Hematology is a branch of medicine involving the study of what?"
         },
         {
             "answer": "testing",
@@ -173,188 +159,6 @@ One note before you delve into your tasks: for each endpoint you are expected to
             "id": 30,
             "question": "testing"
         },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 31,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 32,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 33,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 34,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 35,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 36,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 37,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 38,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 39,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 41,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 42,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 43,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 44,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 45,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 46,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 47,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 48,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 49,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 50,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 51,
-            "question": "testing"
-        },
-        {
-            "answer": "testing",
-            "category": 1,
-            "difficulty": 5,
-            "id": 52,
-            "question": "testing"
-        },
-        {
-            "answer": "12321",
-            "category": 1,
-            "difficulty": 5,
-            "id": 58,
-            "question": "123132"
-        },
-        {
-            "answer": "12321",
-            "category": 1,
-            "difficulty": 5,
-            "id": 59,
-            "question": "123132"
-        },
-        {
-            "answer": "12321",
-            "category": 1,
-            "difficulty": 5,
-            "id": 63,
-            "question": "123132"
-        },
-        {
-            "answer": "12321",
-            "category": 1,
-            "difficulty": 5,
-            "id": 64,
-            "question": "123132"
-        },
-        {
-            "answer": "12321",
-            "category": 1,
-            "difficulty": 5,
-            "id": 65,
-            "question": "123132"
-        }
     ],
     "success": true
 }

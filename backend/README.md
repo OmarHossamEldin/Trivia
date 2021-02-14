@@ -293,6 +293,37 @@ One note before you delve into your tasks: for each endpoint you are expected to
     "total_questions": 26
 }
 ```
+- Quiz
+- playQuiz  
+    * Method Type POST
+    * Url :127.0.0.1:5000/quiz
+    * body
+    ```
+    {
+        "previous_questions":[],
+        "quiz_category":{"type":"Science","id":"1"}
+    }
+    ```
+    * Request
+    ```
+    curl --location --request POST '127.0.0.1:5000/questions' \
+        --data-raw '{
+        "previous_questions":[],
+        "quiz_category":{"type":"Science","id":"1"}
+    }'
+    ```
+```
+{
+	"questions": {
+		"answer": "The Palace of Versailles",
+		"category": 3,
+		"difficulty": 3,
+		"id": 14,
+		"question": "In which royal palace would you find the Hall of Mirrors?"
+	},
+	"success": true
+}
+```
 
 
 # Testing

@@ -3,9 +3,7 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import random
-
 from models import setup_db, Question, Category
-
 
 QUESTIONS_PER_PAGE = 10
 def paginate_questions(request, selection):
@@ -18,18 +16,16 @@ def paginate_questions(request, selection):
   return selected_questions
 
 def get_categories():
-  categories = Category.query.all()
-  formattedCategories = [category.format() for category in categories]
+  categories = Category.query.order_by(Category.type).all()
+  formattedCategories ={category.id: category.type for category in categories}
   return formattedCategories
 
-
 def create_app(test_config=None):
-  # create and configure the app
+
   app = Flask(__name__)
   setup_db(app)
   
-  
- # Set up CORS. Allow 
+
   CORS(app)
 
   @app.after_request
@@ -38,7 +34,6 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
         return response
 
-
   @app.route("/categories", methods=['GET'])
   def recive_categories():
     return  jsonify({
@@ -46,24 +41,23 @@ def create_app(test_config=None):
         'categories': get_categories()
     })
 
-  @app.route('/categories/questions/', methods=['GET'])
+  @app.route('/questions/', methods=['GET'])
   def get_questions():
     selected_question = Question.query.all()
     result_per_page =  paginate_questions(request, selected_question)
 
     question_count = len(Question.query.all())
-
+   
     if len(result_per_page) == 0 :
         abort(404)
     
     return  jsonify({
         'success': True,
-        'pagintated_question': result_per_page,
-        'question_count': question_count,
+        'questions': result_per_page,
+        'total_questions': question_count,
         'current_category': None,
         'categories': get_categories()
     })
-
 
   @app.route('/questions/<int:question_id>', methods=['DELETE'])
   def delete_question(question_id):
@@ -74,45 +68,37 @@ def create_app(test_config=None):
       'message':'question has been deleted successfully'
     })
  
-
   @app.route('/questions', methods=['POST'])
   def store_question():
-    request_data = request.form
-    if len(request_data) >= 2 :
-
-      if 'question' in  request_data and 'answer' in  request_data and 'category_id' in  request_data :
-
-          validatedData = dict(request_data)
-
-          question = Question(
-            question = validatedData['question'], 
-            answer = validatedData['answer'], 
-            category = validatedData['category_id'],
-            difficulty = validatedData['difficulty']
-          )
-      
+      requestData = request.get_json()
+      if  ('question' in requestData and 'answer' in requestData and 'difficulty' in requestData and 'category_id' in requestData):
+          question = Question(question = requestData.get('question'),  answer = requestData.get('answer'), 
+                                            category = requestData.get('category_id'), difficulty = requestData.get('difficulty') )
           question.insert()
       else:
         abort(422)  
-    else :
-      abort(422)
-
-    return jsonify({
-      'success': True,
-      'message': 'a New Question Has Been Added Successfully',
-      'question':question
-    })
+      return jsonify({
+        'success': True,
+        'message': 'A New Question Has Been Added Successfully',
+        'question':question.id
+      })
   
-
   @app.route('/questions/search', methods=['POST'])
   def question_search():
-    validatedData = dict(request.form) 
+    validatedData = dict(request.json) 
     if validatedData['searchTerm'] :
           searchterm = validatedData['searchTerm']
           questions = Question.query.filter(Question.question.ilike(f'%{searchterm}%')).all()
-          formattedQuestions = [question.format() for question in questions]
           if len(questions)== 0 :
               abort(404)
+
+          formattedQuestions = [question.format() for question in questions]
+          return jsonify({
+                'success': True,
+                'questions': formattedQuestions,
+                'total_questions': len(questions),
+                'current_category': None
+            })
     else :
         return jsonify({
           'success': False,
@@ -125,14 +111,14 @@ def create_app(test_config=None):
       'message': 'the question is found',
       'questions': formattedQuestions
     })
-    
+
   @app.route('/categories/<int:category_id>/questions/', methods=['GET'])
   def get_categories_questions(category_id):
     selected_question = Question.query.filter_by(category=category_id).all()
     formattedQuestions = [question.format() for question in selected_question]
     if len(formattedQuestions) == 0 :
         abort(404)
-    
+
     return  jsonify({
         'success': True,
         'questions': formattedQuestions,

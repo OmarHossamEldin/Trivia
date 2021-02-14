@@ -107,7 +107,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 ### 500 code
 - happens Server error 
   1.  success': False
-  1. error': 500
+  1. error: 500
   1. message   server error
 
 ## Resources
@@ -117,7 +117,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 ## End Points
 
 - Categories
-    * categoryQuestions  
+1.  categoryQuestions  
     * Method Type GET
     * Url :127.0.0.1:5000/categories/category_id/questions/ 
     * curl --location --request GET '127.0.0.1:5000/categories/1/questions/' 
@@ -160,6 +160,24 @@ One note before you delve into your tasks: for each endpoint you are expected to
             "question": "testing"
         },
     ],
+    "success": true
+}
+```
+
+1.  index
+    * Method Type GET
+    * Url :127.0.0.1:5000/categories/category_id/questions/ 
+    * curl --location --request GET '127.0.0.1:5000/categories/1/questions/' 
+```
+{
+    "categories": {
+        "1": "Science",
+        "2": "Art",
+        "3": "Geography",
+        "4": "History",
+        "5": "Entertainment",
+        "6": "Sports"
+    },
     "success": true
 }
 ```

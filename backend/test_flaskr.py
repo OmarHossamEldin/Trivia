@@ -119,7 +119,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertTrue(data['message'], 'resource not found')
 
-    def test_search_question_success(self):
+    def test_quiz_success(self):
         info = {
             "quiz_category": {"id": 1, "type": "clicked"},
             "previous_questions": {}

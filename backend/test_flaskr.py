@@ -132,7 +132,7 @@ class TriviaTestCase(unittest.TestCase):
 
     def test_search_question_success(self):
         search = {
-            "searchTerm": 'which ',
+            "searchTerm": 'On ',
         }
         res = self.client().post('/questions/search', json=search)
         data = json.loads(res.data)

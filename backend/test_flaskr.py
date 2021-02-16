@@ -86,7 +86,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['message'], 'Unprocessable Entity')
 
     def test_delete_question_success(self):
-        res = self.client().delete('/questions/6')
+        res = self.client().delete('/questions/2')
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
@@ -94,6 +94,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(
             data['message'],
             'question has been deleted successfully')
+        self.assertEqual(data['question_id'], 2)
 
     def test_delete_question_error(self):
         res = self.client().delete('/questions/1000')
@@ -109,7 +110,7 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertTrue(data['questions'])
+        self.assertTrue(data['questions'], True)
 
     def test_get_cateogory_questions_without_results(self):
         res = self.client().get('/categories/1000/questions/')
@@ -128,7 +129,6 @@ class TriviaTestCase(unittest.TestCase):
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['question'])
 
     def test_search_question_success(self):
         search = {
@@ -137,10 +137,12 @@ class TriviaTestCase(unittest.TestCase):
         res = self.client().post('/questions/search', json=search)
         data = json.loads(res.data)
 
-        questions = len(Question.query.all())
+        questions = Question.query.filter(
+            Question.question.ilike('%On %')).all()
+        formattedQuestions = [question.format() for question in questions]
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['questions'])
-        self.assertEqual(data['total_questions'], questions)
+        self.assertEqual(data['questions'], formattedQuestions)
+        self.assertEqual(data['total_questions'], len(questions))
 
     def test_search_question_error(self):
         search = {

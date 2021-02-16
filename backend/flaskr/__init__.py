@@ -73,7 +73,8 @@ def create_app(test_config=None):
         question.delete()
         return jsonify({
             'success': True,
-            'message': 'question has been deleted successfully'
+            'message': 'question has been deleted successfully',
+            'question_id': question_id
         })
 
     @app.route('/questions', methods=['POST'])
@@ -150,17 +151,17 @@ def create_app(test_config=None):
                 questions = Question.query.filter_by(
                     category=category['id']).all()
 
-            newquestions = Question.query.filter(
+            questions = Question.query.filter(
                 Question.id.notin_((previous_questions))).all()
 
-            newQuestion = newquestions[random.randrange(
-                0, len(newquestions))].format() if len(newquestions) > 0 else None
+            question = questions[random.randrange(
+                0, len(questions))].format() if len(questions) > 0 else None
         else:
             abort(422)
 
         return jsonify({
             'success': True,
-            'question': newQuestion
+            'question': question
         })
 
     @app.errorhandler(404)
